@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "title": "Tag Atlas Taxonomy",
+  "description": "Semantic taxonomy for character and image tag generation.",
+  "categories": [
+    {"id":"subject","name":"Subject & Identity","domains":["count","gender_focus","character_identity","species_type","relationships"]},
+    {"id":"hair","name":"Hair","domains":["length","color","structure","hairstyle","bangs","details","condition_motion"]},
+    {"id":"eyes","name":"Eyes","domains":["color","state","shape","pupils","effects"]},
+    {"id":"face","name":"Face","domains":["structure","mouth","teeth_tongue","markings","makeup","face_effects"]},
+    {"id":"head","name":"Head & Facial Accessories","domains":["ears","horns","headwear","eyewear","supernatural_features"]},
+    {"id":"body","name":"Body & Anatomy","domains":["build","chest","torso","arms_hands","legs_feet","skin","body_details"]},
+    {"id":"appendages","name":"Appendages & Non-Human Anatomy","domains":["wings","tails","extra_limbs","creature_anatomy"]},
+    {"id":"expression","name":"Expression & Emotion","domains":["positive","neutral","negative","reactive","intense"]},
+    {"id":"upper_clothing","name":"Upper Clothing","domains":["tops","sleeves","collars_necklines","outerwear","clothing_state"]},
+    {"id":"lower_clothing","name":"Lower Clothing","domains":["skirts","pants","shorts","legwear","legwear_properties"]},
+    {"id":"outfits","name":"Outfits & Fashion","domains":["dresses_one_piece","uniforms","traditional","fantasy_roles","fashion_styles"]},
+    {"id":"accessories","name":"Accessories & Props","domains":["jewelry","hair_accessories","bags","held_objects","weapons","misc_props"]},
+    {"id":"pose","name":"Pose & Action","domains":["stance","body_position","hand_gestures","interaction","actions","object_interaction"]},
+    {"id":"composition","name":"Composition & Camera","domains":["shot","camera_angle","gaze","crop","perspective","composition"]},
+    {"id":"environment","name":"Environment & Setting","domains":["location","architecture","nature","time","weather","season","environmental_objects"]},
+    {"id":"lighting","name":"Lighting & Rendering","domains":["light_source","direction","quality","effects","rendering_visual_style"]}
+  ],
+  "selectionRules": {
+    "single": ["subject.count","hair.length","hair.color","eyes.color","eyes.state","eyes.shape","eyes.pupils","body.chest","composition.shot","environment.time","environment.season"],
+    "multiple": ["hair.details","eyes.effects","face.markings","accessories.held_objects","pose.actions","lighting.effects"],
+    "optional": true
+  }
+}
