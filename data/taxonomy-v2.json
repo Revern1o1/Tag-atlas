@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "description": "16-category semantic taxonomy for Tag Atlas. Designed to classify the existing tag index without discarding source tags.",
+  "categories": [
+    {"id":"subject","name":"Subject & Identity","domains":["count","gender-focus","character-identity","species-type","relationships"]},
+    {"id":"hair","name":"Hair","domains":["length","color","structure","hairstyle","bangs","details","condition-motion"]},
+    {"id":"eyes","name":"Eyes","domains":["color","state","shape","pupils","effects"]},
+    {"id":"face","name":"Face","domains":["structure","mouth","teeth-tongue","markings","makeup"]},
+    {"id":"head","name":"Head & Facial Accessories","domains":["ears","horns","headwear","eyewear","supernatural-features"]},
+    {"id":"body","name":"Body & Anatomy","domains":["build","chest","torso","arms-hands","legs-feet","skin","body-details"]},
+    {"id":"appendages","name":"Appendages","domains":["wings","tails","extra-limbs","creature-anatomy"]},
+    {"id":"expression","name":"Expression & Emotion","domains":["positive","neutral","negative","reactive","intense"]},
+    {"id":"upper-clothing","name":"Upper Clothing","domains":["tops","sleeves","collars","outerwear","clothing-state"]},
+    {"id":"lower-clothing","name":"Lower Clothing","domains":["skirts","pants","shorts","legwear","legwear-properties"]},
+    {"id":"outfits","name":"Outfits & Fashion","domains":["dresses","uniforms","traditional","fantasy-roles","fashion-styles"]},
+    {"id":"accessories-props","name":"Accessories & Props","domains":["jewelry","hair-accessories","bags","held-objects","weapons","misc-props"]},
+    {"id":"pose-action","name":"Pose & Action","domains":["stance","body-position","hand-gestures","interaction","actions"]},
+    {"id":"composition","name":"Composition & Camera","domains":["shot","camera-angle","gaze","crop","perspective","composition"]},
+    {"id":"environment","name":"Environment & Setting","domains":["location","architecture","nature","time","weather","season","environmental-objects"]},
+    {"id":"lighting-rendering","name":"Lighting & Rendering","domains":["light-source","direction","quality","effects","rendering-visual-style"]}
+  ],
+  "selectionRules": {
+    "single": ["subject.count","hair.length","hair.color","eyes.color","body.build","body.chest"],
+    "multiple": ["hair.details","eyes.effects","face.markings","accessories-props.held-objects","pose-action.actions","composition.effects","lighting-rendering.effects"],
+    "exclusiveFamilies": ["hair.color","eyes.color","subject.count","body.chest"]
+  }
+}
