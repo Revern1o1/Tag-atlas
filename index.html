@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tag Atlas — semantic character and image tag builder." />
+  <title>Tag Atlas</title>
+  <style>
+    :root { font-family: Inter, system-ui, sans-serif; color: #e8eaf0; background: #101217; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(circle at top, #202532 0, #101217 45%); }
+    button, input { font: inherit; }
+    .app { max-width: 1440px; margin: auto; padding: 28px; }
+    header { display:flex; justify-content:space-between; gap:20px; align-items:end; margin-bottom:24px; }
+    h1 { margin:0 0 6px; font-size:clamp(28px,4vw,48px); }
+    .muted { color:#9aa2b1; }
+    .layout { display:grid; grid-template-columns:260px 1fr 330px; gap:18px; }
+    .panel { background:#171a21cc; border:1px solid #2b303b; border-radius:16px; padding:16px; backdrop-filter: blur(10px); }
+    .categories { display:grid; gap:7px; max-height:70vh; overflow:auto; }
+    .category { width:100%; text-align:left; border:1px solid transparent; background:transparent; color:inherit; padding:11px; border-radius:10px; cursor:pointer; }
+    .category:hover,.category.active { background:#252a35; border-color:#3b4352; }
+    .search { width:100%; padding:13px 14px; border-radius:11px; border:1px solid #343a48; background:#0f1116; color:#fff; margin-bottom:16px; }
+    .domains { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; }
+    .domain { padding:14px; border:1px solid #303643; border-radius:12px; background:#1d212a; }
+    .domain h3 { margin:0 0 10px; font-size:14px; }
+    .tag { display:inline-flex; margin:4px; padding:7px 9px; border-radius:999px; border:1px solid #3a4150; background:#13161c; color:#dfe4ed; cursor:pointer; }
+    .tag.selected { background:#e8eaf0; color:#111318; }
+    .prompt { min-height:150px; padding:12px; background:#0d0f13; border:1px solid #303643; border-radius:12px; word-break:break-word; }
+    .chips { display:flex; flex-wrap:wrap; gap:7px; margin:10px 0 16px; }
+    .chip { padding:7px 9px; border-radius:999px; background:#252a35; border:1px solid #3b4352; font-size:13px; }
+    .actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+    .btn { padding:10px 13px; border-radius:10px; border:1px solid #3b4352; background:#202530; color:#fff; cursor:pointer; }
+    .btn:hover { background:#2a303d; }
+    @media (max-width:1000px) { .layout { grid-template-columns:1fr; } .categories { grid-template-columns:repeat(2,1fr); max-height:none; } }
+    @media (max-width:560px) { .app { padding:16px; } .categories { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div><h1>Tag Atlas</h1><div class="muted">Semantic character & image tag builder · taxonomy v2</div></div>
+    <div class="muted">16 categories</div>
+  </header>
+  <div class="layout">
+    <aside class="panel"><input id="search" class="search" placeholder="Search categories or domains…" /><div id="categories" class="categories"></div></aside>
+    <main class="panel"><div id="categoryTitle"></div><div id="domains" class="domains"></div></main>
+    <aside class="panel"><strong>Prompt</strong><div id="chips" class="chips"></div><div id="prompt" class="prompt">Select tags to build a prompt.</div><div class="actions"><button id="copy" class="btn">Copy prompt</button><button id="clear" class="btn">Clear</button></div></aside>
+  </div>
+</div>
+<script type="module">
+import taxonomy from './taxonomy.json' with { type: 'json' };
+const categoriesEl = document.querySelector('#categories');
+const domainsEl = document.querySelector('#domains');
+const titleEl = document.querySelector('#categoryTitle');
+const searchEl = document.querySelector('#search');
+const chipsEl = document.querySelector('#chips');
+const promptEl = document.querySelector('#prompt');
+let active = taxonomy.categories[0].id;
+let selected = [];
+
+const pretty = (s) => s.replaceAll('_',' ').replace(/\\b\\w/g, c => c.toUpperCase());
+function renderCategories(filter='') {
+  categoriesEl.innerHTML = '';
+  taxonomy.categories.filter(c => !filter || `${c.name} ${c.domains.join(' ')}`.toLowerCase().includes(filter.toLowerCase())).forEach(c => {
+    const b = document.createElement('button'); b.className = `category ${c.id===active?'active':''}`; b.textContent = c.name;
+    b.onclick = () => { active=c.id; renderCategories(searchEl.value); renderMain(); };
+    categoriesEl.appendChild(b);
+  });
+}
+function renderMain() {
+  const c = taxonomy.categories.find(x=>x.id===active); if (!c) return;
+  titleEl.innerHTML = `<h2>${c.name}</h2><p class="muted">${c.domains.length} semantic domains</p>`;
+  domainsEl.innerHTML = '';
+  c.domains.forEach(d => {
+    const el=document.createElement('section'); el.className='domain';
+    el.innerHTML=`<h3>${pretty(d)}</h3><button class="tag" data-tag="${d}">${pretty(d)}</button>`;
+    el.querySelector('.tag').onclick=()=>toggle(d);
+    domainsEl.appendChild(el);
+  });
+}
+function toggle(tag) { selected = selected.includes(tag) ? selected.filter(x=>x!==tag) : [...selected,tag]; renderPrompt(); renderMainSelection(); }
+function renderMainSelection(){ document.querySelectorAll('.tag').forEach(b=>b.classList.toggle('selected',selected.includes(b.dataset.tag))); }
+function renderPrompt(){ chipsEl.innerHTML=selected.map(t=>`<span class="chip">${t}</span>`).join(''); promptEl.textContent=selected.join(', ') || 'Select tags to build a prompt.'; }
+searchEl.oninput=()=>renderCategories(searchEl.value);
+document.querySelector('#clear').onclick=()=>{selected=[];renderPrompt();renderMainSelection();};
+document.querySelector('#copy').onclick=async()=>{await navigator.clipboard.writeText(selected.join(', '));};
+renderCategories(); renderMain(); renderPrompt();
+</script>
+</body>
+</html>
