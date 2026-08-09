@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "tag": {
+    "id": "string",
+    "name": "string",
+    "aliases": ["string"],
+    "category": "taxonomy category id",
+    "domain": "taxonomy domain id",
+    "family": "semantic family id",
+    "frequency": 0,
+    "source": "tag_index",
+    "status": "curated|advanced|excluded",
+    "selection": "single|multiple|optional",
+    "related": ["tag id"],
+    "conflicts": ["tag id"]
+  }
+}
