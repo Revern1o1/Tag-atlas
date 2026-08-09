@@ -1,0 +1,20 @@
+{
+  "sourceFile": "tags_index.json",
+  "sha256": "9783dc978f9c97bc5d6b0b2c97a67db108ce92058efc5e7a9d7003a8ab545039",
+  "totalEntries": 107459,
+  "groups": {
+    "general": 26275,
+    "meta": 282,
+    "series": 8612,
+    "characters": 30094,
+    "artists": 42196
+  },
+  "entriesWithAliases": 8107,
+  "recordFormat": ["tag", "frequency", "aliases_csv"],
+  "notes": [
+    "The source is an object containing five tag groups.",
+    "The third field is a comma-separated alias list and may be empty.",
+    "Frequency is an integer occurrence count.",
+    "The source should remain immutable; taxonomy classification is a derived layer."
+  ]
+}
