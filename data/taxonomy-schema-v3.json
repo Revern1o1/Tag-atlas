@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "3.0.0",
+  "name": "Tag Atlas Semantic Taxonomy",
+  "levels": ["category", "domain", "attribute", "tag"],
+  "selectionRules": ["single", "multiple", "optional", "exclusive", "compatible"],
+  "categories": [
+    {"id":"subject-identity","name":"Subject & Identity","domains":["count","gender-focus","character-identity","species-type","relationships","cosplay-identity"]},
+    {"id":"hair","name":"Hair","domains":["length","color","structure","hairstyle","bangs-front","details-color-modifiers","condition-motion"]},
+    {"id":"eyes","name":"Eyes","domains":["color","state","shape","pupils","effects"]},
+    {"id":"face","name":"Face","domains":["structure","mouth","teeth-tongue","facial-markings","makeup","face-effects"]},
+    {"id":"head-facial-accessories","name":"Head & Facial Accessories","domains":["ears","horns","headwear","eyewear-face-accessories","supernatural-head-features"]},
+    {"id":"body-anatomy","name":"Body & Anatomy","domains":["build","chest","torso","arms-hands","legs-feet","skin","body-details-markings"]},
+    {"id":"appendages","name":"Appendages & Non-Human Anatomy","domains":["wings","tails","extra-limbs","creature-anatomy"]},
+    {"id":"expression-emotion","name":"Expression & Emotion","domains":["positive","neutral","negative","reactive","intense-exaggerated","emotional-modifiers"]},
+    {"id":"upper-clothing","name":"Upper Clothing","domains":["tops","sleeves","collars-necklines","outerwear","clothing-state"]},
+    {"id":"lower-clothing","name":"Lower Clothing","domains":["skirts","pants","shorts","legwear","legwear-properties"]},
+    {"id":"outfits-fashion","name":"Outfits & Fashion","domains":["dresses-one-piece","uniforms","traditional","fantasy-roles","fashion-styles"]},
+    {"id":"accessories-props","name":"Accessories & Props","domains":["jewelry","hair-accessories","bags","hand-accessories","held-objects","weapons","miscellaneous-props"]},
+    {"id":"pose-action","name":"Pose & Action","domains":["stance","body-position","hand-gestures","character-interaction","actions","object-interaction"]},
+    {"id":"composition-camera","name":"Composition & Camera","domains":["shot","camera-angle","gaze-orientation","crop","perspective","composition"]},
+    {"id":"environment-setting","name":"Environment & Setting","domains":["location","architecture","nature","time","weather","season","environmental-objects"]},
+    {"id":"lighting-rendering","name":"Lighting, Rendering & Visual Effects","domains":["light-source","direction","quality","effects","rendering-visual-style"]}
+  ],
+  "tagRecord": {
+    "required": ["id","name","aliases","sourceGroup","frequency","status"],
+    "semantic": ["category","domain","attribute","family","confidence","classificationMethod"],
+    "relations": ["related","compatible","conflicts"],
+    "selection": "single|multiple|optional|exclusive|compatible"
+  }
+}
